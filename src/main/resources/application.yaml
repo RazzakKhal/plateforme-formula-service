@@ -20,7 +20,7 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: ${SPRING_DATASOURCE_URL_USER_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
+    url: ${SPRING_DATASOURCE_URL_FORMULA_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
     username: ${SPRING_POSTGRES_USERNAME:postgres}
     password: ${SPRING_POSTGRES_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
