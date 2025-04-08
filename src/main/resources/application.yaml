@@ -1,0 +1,65 @@
+spring:
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  profiles:
+    active:
+      - "prod"
+  application:
+    name: formula-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL_USER_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
+    username: ${SPRING_POSTGRES_USERNAME:postgres}
+    password: ${SPRING_POSTGRES_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+
+server:
+  port: 3002
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+  health:
+    probes:
+      enabled: true
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+
+info:
+  app:
+    name: "formula-service"
+    description: "formula service microservice"
