@@ -1,16 +1,54 @@
 package com.bookNDrive.formula_service.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.bookNDrive.formula_service.models.Formula;
+import com.bookNDrive.formula_service.services.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/formulas")
+@CrossOrigin
 public class CrudController {
 
-    @GetMapping("test")
+    private CrudService crudService;
+
+    @Autowired
+    public CrudController(CrudService crudService){
+        this.crudService = crudService;
+    }
+
+    @GetMapping("/test")
     public String getEnv(){
 
         return "test ok";
+    }
+
+    public ResponseEntity<Formula> createFormula(@RequestBody Formula formula){
+
+        return ResponseEntity.status(201).body(crudService.createFormula(formula));
+    }
+
+    public String updateFormula(){
+
+        return "";
+    }
+
+    public String deleteFormula(){
+
+        return "";
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Formula> getFormula(@PathVariable Long id){
+
+        return ResponseEntity.ok(crudService.getFormula(id));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<Formula>> getAllFormulas(){
+        return ResponseEntity.ok(crudService.getAllFormulas());
     }
 }
