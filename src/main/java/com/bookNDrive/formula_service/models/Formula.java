@@ -29,10 +29,10 @@ public class Formula {
 
     private String description;
 
-    private double price;
+    private Double price;
 
     private boolean code;
 
-    private double promotionnalPrice;
+    private Double promotionnalPrice;
 
 }
