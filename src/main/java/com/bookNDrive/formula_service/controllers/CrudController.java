@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/formulas")
-@CrossOrigin
 public class CrudController {
 
     private CrudService crudService;
