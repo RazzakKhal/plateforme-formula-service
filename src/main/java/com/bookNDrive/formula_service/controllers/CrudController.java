@@ -4,6 +4,7 @@ import com.bookNDrive.formula_service.models.Formula;
 import com.bookNDrive.formula_service.services.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,5 +50,10 @@ public class CrudController {
     @GetMapping("")
     public ResponseEntity<List<Formula>> getAllFormulas(){
         return ResponseEntity.ok(crudService.getAllFormulas());
+    }
+
+    @GetMapping("authentication")
+    public Authentication getAuthentication(Authentication authentication){
+        return authentication;
     }
 }
