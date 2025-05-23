@@ -10,6 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -48,9 +51,13 @@ public class TokenFilter extends OncePerRequestFilter {
                 if(!jwtUtil.isTokenExpired(jwt)){
                     String username = jwtUtil.extractUsername(jwt);
                     Claims claims = jwtUtil.extractAllClaims(jwt); // méthode à implémenter
+                    List<String> roles = claims.get("roles", List.class);
 
+                    Collection<GrantedAuthority> authorities = roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
-                    var auth = new UsernamePasswordAuthenticationToken(username, null,(Collection<? extends GrantedAuthority>) claims.get("role"));
+                    var auth = new UsernamePasswordAuthenticationToken(username, jwt,authorities);
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
 
