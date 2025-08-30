@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 class GlobalHandlerController {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> handleExistingEntityException(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponseDto> globalException(Exception ex, HttpServletRequest request) {
         ErrorResponseDto error = new ErrorResponseDto(
                 "GLOBAL_ERROR",
                 ex.getMessage(),

@@ -3,6 +3,7 @@ package com.bookNDrive.formula_service.controllers;
 import com.bookNDrive.formula_service.dtos.sended.FormulaDto;
 import com.bookNDrive.formula_service.services.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +28,16 @@ public class CrudController {
         return ResponseEntity.status(201).body(crudService.createFormula(formula));
     }
 
-    public String updateFormula() {
+    @PutMapping("/{id}")
+    public ResponseEntity<FormulaDto> updateFormula(@PathVariable Long id, @RequestBody FormulaDto formulaDto) {
 
-        return "";
+        return ResponseEntity.ok(crudService.updateFormula(id, formulaDto));
     }
 
-    public String deleteFormula() {
-
-        return "";
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFormula(@PathVariable Long id) {
+        crudService.deleteFormula(id);
     }
 
     @GetMapping("/{id}")

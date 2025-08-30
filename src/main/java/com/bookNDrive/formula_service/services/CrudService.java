@@ -37,4 +37,20 @@ public class CrudService {
         return formulaMapper.formulaToFormulaDto(formulaEntity);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteFormula(Long formulaId) {
+        formulaRepository.deleteById(formulaId);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public FormulaDto updateFormula(Long formulaId, FormulaDto formulaDto) {
+        formulaRepository.findById(formulaId).orElseThrow(() -> {
+            throw new RuntimeException("Formule non trouvée en bdd");
+        });
+
+        var formulaEntity = formulaRepository.save(formulaMapper.formulaDtoToFormula(formulaDto));
+        return formulaMapper.formulaToFormulaDto(formulaEntity);
+
+    }
+
 }
