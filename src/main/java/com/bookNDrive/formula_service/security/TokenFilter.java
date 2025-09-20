@@ -7,19 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.GrantedAuthority;
-
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +21,6 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Autowired
     JwtUtil jwtUtil;
-
 
 
     /**
@@ -48,16 +41,16 @@ public class TokenFilter extends OncePerRequestFilter {
             String jwt = header.substring(7);
 
             try {
-                if(!jwtUtil.isTokenExpired(jwt)){
+                if (!jwtUtil.isTokenExpired(jwt)) {
                     String username = jwtUtil.extractUsername(jwt);
                     Claims claims = jwtUtil.extractAllClaims(jwt); // méthode à implémenter
-                    List<String> roles = claims.get("roles", List.class);
 
-                    Collection<GrantedAuthority> authorities = roles.stream()
+                    var roles = (List<String>) claims.get("roles");
+                    var authorities = roles.stream()
                             .map(SimpleGrantedAuthority::new)
                             .collect(Collectors.toList());
 
-                    var auth = new UsernamePasswordAuthenticationToken(username, jwt,authorities);
+                    var auth = new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
 
