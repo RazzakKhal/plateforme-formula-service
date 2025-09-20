@@ -48,7 +48,7 @@ public class CrudService {
             throw new RuntimeException("Formule non trouvée en bdd");
         });
 
-        var formulaEntity = formulaRepository.save(formulaMapper.formulaDtoToFormula(formulaDto));
+        var formulaEntity = formulaRepository.save(formulaMapper.formulaDtoToExistingFormula(formulaDto));
         return formulaMapper.formulaToFormulaDto(formulaEntity);
 
     }

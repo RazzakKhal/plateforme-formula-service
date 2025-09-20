@@ -17,7 +17,11 @@ public interface FormulaMapper {
     Formula formulaDtoToFormula(FormulaDto formulaDto);
 
     @Mapping(target = "id", ignore = false)
+    Formula formulaDtoToExistingFormula(FormulaDto formulaDto);
+
+    @Mapping(target = "id", ignore = false)
     FormulaDto formulaToFormulaDto(Formula formula);
+
 
     List<FormulaDto> formulasToFormulaDtos(List<Formula> formulas);
 
