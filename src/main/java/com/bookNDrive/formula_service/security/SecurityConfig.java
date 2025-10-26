@@ -3,6 +3,7 @@ package com.bookNDrive.formula_service.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,7 +23,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/formulas/test","/actuator/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/formulas").permitAll()
+                        .requestMatchers("/formulas/test", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
 
                 )
