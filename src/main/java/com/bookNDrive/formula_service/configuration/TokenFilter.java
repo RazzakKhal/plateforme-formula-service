@@ -1,4 +1,4 @@
-package com.bookNDrive.formula_service.security;
+package com.bookNDrive.formula_service.configuration;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

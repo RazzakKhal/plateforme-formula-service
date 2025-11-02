@@ -1,4 +1,4 @@
-package com.bookNDrive.formula_service.security;
+package com.bookNDrive.formula_service.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

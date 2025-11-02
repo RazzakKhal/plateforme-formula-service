@@ -1,24 +1,16 @@
-package com.bookNDrive.formula_service.models;
+package com.bookNDrive.formula_service.infrastructure.outbound.persistence.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Formula {
-
-    Formula(String title, String description, double price, boolean code){
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.code = code;
-    }
+@Table(name= "formula")
+public class FormulaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +26,4 @@ public class Formula {
     private boolean code;
 
     private Double promotionnalPrice;
-
 }
