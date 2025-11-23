@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "formula")
+@Table(name = "formula")
 public class FormulaEntity {
 
     @Id

@@ -1,4 +1,4 @@
-package com.bookNDrive.formula_service.application.service.port;
+package com.bookNDrive.formula_service.application.port;
 
 import com.bookNDrive.formula_service.domain.models.Formula;
 

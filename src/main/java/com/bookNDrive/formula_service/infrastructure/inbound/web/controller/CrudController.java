@@ -1,6 +1,6 @@
 package com.bookNDrive.formula_service.infrastructure.inbound.web.controller;
 
-import com.bookNDrive.formula_service.application.service.port.FormulaCrudUseCase;
+import com.bookNDrive.formula_service.application.port.FormulaCrudUseCase;
 import com.bookNDrive.formula_service.infrastructure.inbound.web.dto.FormulaRequest;
 import com.bookNDrive.formula_service.infrastructure.inbound.web.dto.FormulaResponse;
 import com.bookNDrive.formula_service.infrastructure.inbound.web.mapper.FormulaWebMapper;

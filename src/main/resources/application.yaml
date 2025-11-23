@@ -16,14 +16,21 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    hibernate:
-      ddl-auto: update
     show-sql: true
   datasource:
     url: ${SPRING_DATASOURCE_URL_FORMULA_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
     username: ${SPRING_POSTGRES_USERNAME:postgres}
     password: ${SPRING_POSTGRES_PASSWORD:root}
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    url: ${SPRING_DATASOURCE_URL_FORMULA_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
+    user: ${SPRING_POSTGRES_USERNAME:postgres}
+    password: ${SPRING_POSTGRES_PASSWORD:root}
+    baselineVersion: 1
+    baselineDescription: initial_version
 
 server:
   port: 3002
@@ -57,6 +64,13 @@ eureka:
     registerWithEureka: true
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
+
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure.flyway: DEBUG
+    org.flywaydb: DEBUG
+
 
 
 info:

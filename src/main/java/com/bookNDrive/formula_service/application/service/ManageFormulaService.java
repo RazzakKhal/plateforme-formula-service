@@ -1,6 +1,6 @@
 package com.bookNDrive.formula_service.application.service;
 
-import com.bookNDrive.formula_service.application.service.port.FormulaCrudUseCase;
+import com.bookNDrive.formula_service.application.port.FormulaCrudUseCase;
 import com.bookNDrive.formula_service.domain.exceptions.FormulaNotFoundException;
 import com.bookNDrive.formula_service.domain.models.Formula;
 import com.bookNDrive.formula_service.domain.ports.out.FormulaRepositoryPort;
