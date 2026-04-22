@@ -4,10 +4,10 @@ import com.bookNDrive.formula_service.dtos.sended.FormulaDto;
 import com.bookNDrive.formula_service.mappers.FormulaMapper;
 import com.bookNDrive.formula_service.repositories.FormulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CrudService {
@@ -26,8 +26,9 @@ public class CrudService {
         return formulaMapper.formulaToFormulaDto(formula);
     }
 
-    public List<FormulaDto> getAllFormulas() {
-        return formulaMapper.formulasToFormulaDtos(formulaRepository.findAll());
+    public Page<FormulaDto> getAllFormulas(Pageable pageable) {
+        return formulaRepository.findAll(pageable)
+                .map(formulaMapper::formulaToFormulaDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

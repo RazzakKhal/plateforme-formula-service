@@ -3,12 +3,13 @@ package com.bookNDrive.formula_service.controllers;
 import com.bookNDrive.formula_service.dtos.sended.FormulaDto;
 import com.bookNDrive.formula_service.services.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/formulas")
@@ -47,8 +48,10 @@ public class CrudController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<FormulaDto>> getAllFormulas() {
-        return ResponseEntity.ok(crudService.getAllFormulas());
+    public ResponseEntity<Page<FormulaDto>> getAllFormulas(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        return ResponseEntity.ok(crudService.getAllFormulas(pageable));
     }
 
     @GetMapping("authentication")
