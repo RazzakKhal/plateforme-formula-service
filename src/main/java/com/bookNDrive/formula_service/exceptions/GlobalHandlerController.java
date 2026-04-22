@@ -1,7 +1,7 @@
 package com.bookNDrive.formula_service.exceptions;
 
 
-import com.bookNDrive.formula_service.dtos.sended.ErrorResponseDto;
+import com.bookndrive.common.error.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
