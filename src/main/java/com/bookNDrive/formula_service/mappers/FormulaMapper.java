@@ -1,7 +1,7 @@
 package com.bookNDrive.formula_service.mappers;
 
 import com.bookNDrive.formula_service.dtos.sended.FormulaDto;
-import com.bookNDrive.formula_service.models.Formula;
+import com.bookNDrive.formula_service.entities.Formula;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
