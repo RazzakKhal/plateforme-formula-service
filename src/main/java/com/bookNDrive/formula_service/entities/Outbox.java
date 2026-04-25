@@ -6,16 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-public class Outbox {
+@Table(name = "outbox")
+public class Outbox extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     private String eventName;
 

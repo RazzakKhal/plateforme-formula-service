@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "formula")
 public class Formula {
 
     @Id
