@@ -29,7 +29,7 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
   datasource:
     url: ${SPRING_DATASOURCE_URL_FORMULA_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}
     username: ${SPRING_POSTGRES_USERNAME:postgres}
@@ -78,3 +78,17 @@ info:
   app:
     name: "formula-service"
     description: "formula service microservice"
+
+logging:
+  file:
+    name: ${LOG_FILE_NAME:logs/formula-service.log}
+  structured:
+    format:
+      console: ecs
+      file: ecs
+    ecs:
+      service:
+        name: ${spring.application.name}
+        environment: ${SPRING_PROFILES_ACTIVE:local}
+  level:
+    root: INFO
