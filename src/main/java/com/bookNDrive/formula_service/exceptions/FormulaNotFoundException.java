@@ -8,7 +8,7 @@ public class FormulaNotFoundException extends ApiException {
     public FormulaNotFoundException(Long formulaId) {
         super(
                 "Aucune formule ne correspond à l'identifiant " + formulaId,
-                "FORMULA_NOT_FOUND",
+                FormulaErrorCodes.FORMULA_NOT_FOUND,
                 HttpStatus.NOT_FOUND.value()
         );
     }
