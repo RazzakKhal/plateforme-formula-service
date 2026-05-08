@@ -9,26 +9,37 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/formulas")
 @Tag(name = "Formula Controller", description = "Expose les operations CRUD sur les formules.")
+@Validated
 public class FormulaController {
 
-    private CrudService crudService;
+    private final CrudService crudService;
 
     @Autowired
     public FormulaController(CrudService crudService) {
         this.crudService = crudService;
     }
-
 
     @Operation(
             summary = "Creer une formule",
@@ -57,9 +68,8 @@ public class FormulaController {
             )
     })
     @PostMapping("")
-    public ResponseEntity<FormulaDto> createFormula(@RequestBody FormulaDto formula) {
-
-        return ResponseEntity.status(201).body(crudService.createFormula(formula));
+    public ResponseEntity<FormulaDto> createFormula(@Valid @RequestBody FormulaDto formula) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(crudService.createFormula(formula));
     }
 
     @Operation(
@@ -89,8 +99,10 @@ public class FormulaController {
             )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<FormulaDto> updateFormula(@PathVariable Long id, @RequestBody FormulaDto formulaDto) {
-
+    public ResponseEntity<FormulaDto> updateFormula(
+            @PathVariable @Positive(message = "must be greater than 0") Long id,
+            @Valid @RequestBody FormulaDto formulaDto
+    ) {
         return ResponseEntity.ok(crudService.updateFormula(id, formulaDto));
     }
 
@@ -122,7 +134,7 @@ public class FormulaController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFormula(@PathVariable Long id) {
+    public void deleteFormula(@PathVariable @Positive(message = "must be greater than 0") Long id) {
         crudService.deleteFormula(id);
     }
 
@@ -148,8 +160,7 @@ public class FormulaController {
             )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<FormulaDto> getFormula(@PathVariable Long id) {
-
+    public ResponseEntity<FormulaDto> getFormula(@PathVariable @Positive(message = "must be greater than 0") Long id) {
         return ResponseEntity.ok(crudService.getFormula(id));
     }
 
@@ -174,5 +185,4 @@ public class FormulaController {
     ) {
         return ResponseEntity.ok(crudService.getAllFormulas(pageable));
     }
-
 }
