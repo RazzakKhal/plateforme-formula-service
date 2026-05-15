@@ -1,20 +1,22 @@
 package com.bookNDrive.formula_service.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "formula")
-public class Formula {
+@Table(name = "formulas")
+public class Formula extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String title;
     @Column(columnDefinition = "TEXT")
     private String description;

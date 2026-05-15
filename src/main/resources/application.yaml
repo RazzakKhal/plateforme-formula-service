@@ -16,7 +16,11 @@ spring:
       - "prod"
   application:
     name: formula-service
+  sql:
+    init:
+      mode: always
   jpa:
+    defer-datasource-initialization: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       jakarta:
@@ -28,7 +32,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
   datasource:
     url: ${SPRING_DATASOURCE_URL_FORMULA_SERVICE:jdbc:postgresql://localhost:5433/autoecole-formula}

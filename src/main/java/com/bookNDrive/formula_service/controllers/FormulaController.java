@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/formulas")
@@ -100,7 +101,7 @@ public class FormulaController {
     })
     @PutMapping("/{id}")
     public ResponseEntity<FormulaDto> updateFormula(
-            @PathVariable @Positive(message = "must be greater than 0") Long id,
+            @PathVariable UUID id,
             @Valid @RequestBody FormulaDto formulaDto
     ) {
         return ResponseEntity.ok(crudService.updateFormula(id, formulaDto));
@@ -134,7 +135,7 @@ public class FormulaController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFormula(@PathVariable @Positive(message = "must be greater than 0") Long id) {
+    public void deleteFormula(@PathVariable UUID id) {
         crudService.deleteFormula(id);
     }
 
@@ -160,7 +161,7 @@ public class FormulaController {
             )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<FormulaDto> getFormula(@PathVariable @Positive(message = "must be greater than 0") Long id) {
+    public ResponseEntity<FormulaDto> getFormula(@PathVariable UUID id) {
         return ResponseEntity.ok(crudService.getFormula(id));
     }
 

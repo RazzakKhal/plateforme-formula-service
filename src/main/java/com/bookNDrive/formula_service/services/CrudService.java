@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 public class CrudService {
@@ -24,7 +26,7 @@ public class CrudService {
         this.formulaMapper = formulaMapper;
     }
 
-    public FormulaDto getFormula(Long id) {
+    public FormulaDto getFormula(UUID id) {
         log.info("Recuperation d'une formule demandee formulaId={}", id);
         var formula = formulaRepository.findById(id)
                 .orElseThrow(() -> {
@@ -62,7 +64,7 @@ public class CrudService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteFormula(Long formulaId) {
+    public void deleteFormula(UUID formulaId) {
         log.info("Suppression d'une formule demandee formulaId={}", formulaId);
         if (!formulaRepository.existsById(formulaId)) {
             log.warn("Suppression impossible, formule introuvable formulaId={}", formulaId);
@@ -73,7 +75,7 @@ public class CrudService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public FormulaDto updateFormula(Long formulaId, FormulaDto formulaDto) {
+    public FormulaDto updateFormula(UUID formulaId, FormulaDto formulaDto) {
         log.info(
                 "Mise a jour d'une formule demandee formulaId={} title={} price={} promotionnalPrice={}",
                 formulaId,
@@ -87,7 +89,9 @@ public class CrudService {
                     return new FormulaNotFoundException(formulaId);
                 });
 
-        var formulaEntity = formulaRepository.save(formulaMapper.formulaDtoToExistingFormula(formulaDto));
+        var formulaEntity = formulaMapper.formulaDtoToExistingFormula(formulaDto);
+        formulaEntity.setId(formulaId);
+        formulaEntity = formulaRepository.save(formulaEntity);
         log.info("Formule mise a jour formulaId={}", formulaId);
         return formulaMapper.formulaToFormulaDto(formulaEntity);
     }
