@@ -16,11 +16,7 @@ spring:
       - "prod"
   application:
     name: formula-service
-  sql:
-    init:
-      mode: always
   jpa:
-    defer-datasource-initialization: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       jakarta:
